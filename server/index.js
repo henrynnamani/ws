@@ -13,9 +13,22 @@ server.listen(CONSTANTS.PORT, () => {
     console.log('Server is running!!!')
 })
 
-
 server.on('upgrade', (req, socket, head) => {
-    console.log(req);
+    const UpgradeHeaderCheck = req.headers['upgrade'].toLowerCase() === CONSTANTS.UPGRADE;
+
+    const connectionHeaderCheck = req.headers['connection'].toLowerCase() === CONSTANTS.CONNECTION; // upgrade
+
+    const methodCheck = req.method === CONSTANTS.METHOD;
+
+
+    // origin check
+    const originCheck = METHODS.isOriginAllowed(req.headers['origin'])
+
+    if(METHODS.check(socket, UpgradeHeaderCheck, methodCheck, connectionHeaderCheck, originCheck)) {
+        upgradeConnection(req, socket, head)
+    }
+
+    // console.log(UpgradeHeaderCheck);
 })
 
 CONSTANTS.CUSTOM_ERRORS.forEach((errorEvent) => {
@@ -24,3 +37,7 @@ CONSTANTS.CUSTOM_ERRORS.forEach((errorEvent) => {
         process.exit(1)
     })
 })
+
+function upgradeConnection(req, socket, head) {
+    console.log('Connection complies with RFC 6455 specification')
+}
