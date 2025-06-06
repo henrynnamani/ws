@@ -10,5 +10,15 @@
 </body>
 <script>
     const ws = new WebSocket('ws://localhost:8000')
+
+    ws.onopen = (event) => {
+        // console.log(event)
+        ws.send('Hello how are you doing')
+    }
+
+    ws.onmessage = (message) => {
+        console.log(message)
+    }
+
 </script>
 </html>

@@ -15,7 +15,11 @@ wss.on('headers', (headers, req) => {
 
 wss.on('connection', (ws, req) => {
     console.log(ws)
+
+    ws.send('First message on Websocket Oasis!!!')
 })
+
+ws.on('message')
 
 server.listen(8000, () => {
     console.log('working!!!')
