@@ -1,0 +1,15 @@
+<h1>I am being served by express server</h1>
+
+<script src="/socket.io/socket.io.js"></script> <!-- Injects the io into the html -->
+
+<script>
+    const socket = io('http://localhost:8000')
+
+    socket.on('connect', () => {
+        console.log(socket.id)
+    })
+
+    socket.on('messageFromServer', (data) => {
+        console.log(data)
+    })
+</script>
