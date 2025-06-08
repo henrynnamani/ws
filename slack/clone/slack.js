@@ -13,7 +13,7 @@ const expressServer = app.listen(8001);
 const io = socketio(expressServer)
 
 io.on('connection', (socket) => {
-    socket.emit('welcome', 'Hey, from server side')
+    // socket.emit('welcome', 'Hey, from server side')
     socket.on('clientConnect', (data) => {
         console.log(socket.id, 'is connected')
     })

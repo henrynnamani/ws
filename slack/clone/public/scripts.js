@@ -12,9 +12,16 @@ socket.on('welcome', (data) => {
 
 socket.on('nsList', (data) => {
     const namespacesDiv = document.querySelector('.namespaces')
+
     data.forEach((ns) => {
-        namespacesDiv.innerHTML = `<div class="namespace" ns=${ns.name}><img
+        namespacesDiv.innerHTML += `<div class="namespace" ns=${ns.endpoint}><img
                     src=${ns.image}>
             </div>`
+    })
+
+    Array.from(document.getElementsByClassName('namespace')).forEach(element=> {
+        element.addEventListener('click', (e) => {
+            joinNs(element, data)
+        })
     })
 })
